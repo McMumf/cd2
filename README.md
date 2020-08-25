@@ -21,3 +21,11 @@ A shell script to help navigate to commonly navigated items
 2. Add a key:value pair to the shell script
    > directories["name"]="/path/to/directory"
 3. Save the shell file
+
+## TODO
+
+* Figure out how to change directory in current bash window
+  * alias or spawn new terminal window
+* Possibly redo codebase to not be a shell script
+  * c?
+  * golang?

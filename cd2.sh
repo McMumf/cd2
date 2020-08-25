@@ -9,6 +9,7 @@ directories["vag"]="/vagrant"
 
 install() {
 
+    # check if root
     if [[ $EUID -ne 0 ]]; then
         echo "This function must be run as root" 1>&2
         exit 1
@@ -28,17 +29,19 @@ install() {
     fi
 
     cp $script_path_with_name /opt/bin/cd2.sh
-    if [ ! -L "/usr/bin/cd2" ]
-    then
+
+    if [ ! -L "/usr/bin/cd2" ]; then
         ln -s /opt/bin/cd2.sh /usr/bin/cd2
     fi
 }
 
 uninstall() {
+    
     if [[ $EUID -ne 0 ]]; then
         echo "This function must be run as root" 1>&2
         exit 1
     fi 
+
     rm /opt/bin/cd2.sh
     rm /usr/bin/cd2
 }
@@ -46,17 +49,17 @@ uninstall() {
 navigate() {
 
     echo "Navigating to ${directories["$1"]}"
-    . cd "${directories["$1"]}"
+    cd "${directories["$1"]}"
 }
 
-if [ $1 == "install" ]
-then
+if [ $1 == "install" ]; then
     install
+elif [ $1 == "uninstall" ]; then
+    uninstall
 else
-    if [ -v directories[$1] ]
-    then
-        navigate $1
+    if [ -v directories[$1] ]; then
+        . navigate $1
     else
-        echo "general kenobi"
+        echo "Yeahhh that ain't it chief, try another name"
     fi
 fi

@@ -12,7 +12,7 @@ A shell script to help navigate to commonly navigated items
 ## Use
 
 * > cd2 GitProject
-   * This will navigate you to a directory to defined
+   * This will navigate you to a directory you defined
 
 ## Adding a path
 

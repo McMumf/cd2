@@ -5,11 +5,12 @@ declare -A directories
 
 # Define name and directory
 directories["cd2"]="/vagrant/cd2"
+directories["vag"]="/vagrant"
 
 install() {
 
     if [[ $EUID -ne 0 ]]; then
-        echo "This script must be run as root" 1>&2
+        echo "This function must be run as root" 1>&2
         exit 1
     fi
 
@@ -33,9 +34,29 @@ install() {
     fi
 }
 
+uninstall() {
+    if [[ $EUID -ne 0 ]]; then
+        echo "This function must be run as root" 1>&2
+        exit 1
+    fi 
+    rm /opt/bin/cd2.sh
+    rm /usr/bin/cd2
+}
+
+navigate() {
+
+    echo "Navigating to ${directories["$1"]}"
+    . cd "${directories["$1"]}"
+}
+
 if [ $1 == "install" ]
 then
     install
 else
-    cd ${directories["$1"]}
+    if [ -v directories[$1] ]
+    then
+        navigate $1
+    else
+        echo "general kenobi"
+    fi
 fi
